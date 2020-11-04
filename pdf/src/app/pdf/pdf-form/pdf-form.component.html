@@ -1,0 +1,133 @@
+<!-- <h5>Basic</h5>
+<p-autoComplete [(ngModel)]="selectedCountry" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [minLength]="1"></p-autoComplete>
+
+<h5>Dropdown and Templating</h5>
+<p-autoComplete [(ngModel)]="selectedCountryAdvanced" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [dropdown]="true">
+    <ng-template let-country pTemplate="item">
+        <div class="country-item">
+            <img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" />
+            <div>{{country.name}}</div>
+        </div>
+    </ng-template>
+</p-autoComplete>
+
+<h5>Multiple</h5>
+<span class="p-fluid">
+    <p-autoComplete [(ngModel)]="selectedCountries" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [multiple]="true">
+    </p-autoComplete>
+</span> -->
+
+<p-toolbar>
+  <div class="p-toolbar-group-left">
+      <p-button label="New" icon="pi pi-plus"></p-button>
+      <p-button label="Print" icon="pi pi-print" styleClass="p-button-success"></p-button>
+  </div>
+</p-toolbar>
+
+<div class="p-grid p-fluid">
+  <div class="p-col-8">
+    <div class="p-col-11 p-offset-1">
+      <div class="p-shadow-1">
+        Upload face pic here
+        <p-fileUpload mode="basic" name="demo[]" (onUpload)="onUpload($event)"
+          accept="image/*" maxFileSize="3000000" >
+        </p-fileUpload>
+      </div>
+    </div>
+    
+    <div class="p-col-11 p-offset-1">
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon"><i class="pi pi-id-card"></i></span>
+        <input type="text" pInputText placeholder="Vorname">         
+    </div>
+    </div>
+            
+    <div class="p-col-11 p-offset-1">
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon"><i class="pi pi-id-card"></i></span>
+        <input type="text" pInputText placeholder="Nachname">         
+      </div>
+    </div>
+  </div>
+  <div class="p-col-4">
+    <div class="p-col-12">
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+        <input type="text" pInputText placeholder="Geburtsdatum, Geburtsort">         
+      </div>
+    </div>
+    <div class="p-col-12">
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+        <input type="text" pInputText placeholder="Adresse">         
+      </div>
+    </div>
+    <div class="p-col-12">
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon"><i class="pi pi-mobile"></i></span>
+        <input type="text" pInputText placeholder="Telefon">         
+      </div>
+    </div>
+    <div class="p-col-12">
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon"><i class="pi pi-envelope"></i></span>
+        <input type="text" pInputText placeholder="Email">         
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="p-grid p-fluid">
+  <div class="p-col-8">
+    <div class="p-col-11 p-offset-1">
+      <h5>Berufserfahrung</h5>
+      <p-toolbar>
+        <div class="p-toolbar-group-left">
+            <p-button icon="pi pi-plus"(onClick)="createEntry()"></p-button>
+        </div>
+      </p-toolbar>
+    </div>
+    <div class="p-col-11 p-offset-1">
+      <p-table [value]="workExperiences" dataKey="id" editMode="row">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>time</th>
+                <th>category</th>
+                <th style="width:16rem"></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-workExperience let-editing="editing" let-ri="rowIndex">
+            <tr [pEditableRow]="workExperience">
+                <td pEditableColumn>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="workExperience.time">
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{workExperience.time}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td pEditableColumn>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="workExperience.category" required>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{workExperience.category}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td style="text-align:center">
+                    <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(workExperience)" class="p-button-rounded p-button-text"></button>
+                    <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(workExperience)" class="p-button-rounded p-button-text p-button-success p-mr-2"></button>
+                    <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(workExperience, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
+                </td>
+            </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>
+
+
